@@ -1,14 +1,14 @@
 # MaterialDialog #
 
-自定义**Material Dialog**，兼容低版本的SDK。
+Customized **Material Dialog**.It is compatible with low-version-SDK。
 
-## 效果图 ##
+## Screenshot ##
 ![](https://github.com/JustinRoom/MaterialDialogDemo/blob/master/screenshot/device-2016-10-11-115816.png)
 ![](https://github.com/JustinRoom/MaterialDialogDemo/blob/master/screenshot/device-2016-10-11-115953.png)
 ![](https://github.com/JustinRoom/MaterialDialogDemo/blob/master/screenshot/device-2016-10-11-120035.png)
 
 <br>
-## 使用实例 ##
+## Usage ##
 <pre><code>
 <font color="#800080">
   public void showMaterialDialog(View view) {
