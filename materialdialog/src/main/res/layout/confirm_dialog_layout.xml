@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_bg_shape"
-    android:minWidth="300dp"
+    android:minWidth="320dp"
     android:orientation="vertical"
     android:paddingBottom="10dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -36,6 +36,23 @@
         android:text="message"
         android:textColor="#333333"
         android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="4dp"
+        android:hint="input"
+        android:textColor="#333333"
+        android:textColorHighlight="#ffff00"
+        android:textColorHint="#CCCCCC"
+        android:textSize="16sp"
+        android:gravity="left|top"
+        android:inputType="textMultiLine"
+        android:background="@drawable/dialog_edit_view_bg_shape"
+        android:imeOptions="actionDone"/>
 
     <LinearLayout
         android:id="@+id/custom_view_container"

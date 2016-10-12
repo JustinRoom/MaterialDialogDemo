@@ -1,6 +1,8 @@
 package org.jsc.materialdialogdemo.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,11 +24,20 @@ public class CustomActivity extends CommonActivity {
 
         ConfirmDialog.Builder builder = new ConfirmDialog.Builder(this)
                 .setTitle("Title")
-                .setSubtitle("sub title")
-                .setMessage("display message here.display message here.display message here.display message here.display message here.")
-                .setPositiveButton("OK", null)
-                .setNegativeButton("CANCEL", null)
-                .setView(imageView);
+//                .setSubtitle("sub title")
+//                .setMessage("display message here.display message here.display message here.display message here.display message here.")
+                .setPositiveButton("OK")
+                .setNegativeButton("CANCEL")
+                .setOnDialogButtonClickListener(new ConfirmDialog.OnDialogButtonClickListener() {
+                    @Override
+                    public void onDialogButtonClick(DialogInterface dialog, Editable editable, boolean isSure) {
+                        dialog.dismiss();
+                        if (isSure)
+                            showToast(editable.toString());
+                    }
+                })
+                .showEditModel("", "输入内容", -1);
+//                .setView(imageView);
 
         builder.show();
     }
