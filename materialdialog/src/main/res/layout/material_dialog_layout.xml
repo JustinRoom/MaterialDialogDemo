@@ -14,7 +14,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="标题"
+        android:text="@string/dialog_title"
         android:textColor="#333333"
         android:textSize="20sp" />
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="副标题"
+        android:text="@string/dialog_sub_tittle"
         android:textColor="#800080"
         android:textSize="18sp" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="message"
+        android:text="@string/dialog_message"
         android:textColor="#333333"
         android:textSize="16sp" />
 
@@ -58,6 +58,7 @@
         android:id="@+id/custom_view_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:orientation="vertical"/>
 
     <LinearLayout
@@ -71,13 +72,13 @@
             android:id="@+id/btn_negative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/dialog_button_selector"
-            android:paddingBottom="4dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="4dp"
-            android:text="取消"
+            android:paddingBottom="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="6dp"
+            android:text="@string/dialog_negative_button"
             android:gravity="center"
             android:minWidth="60dp"
             android:textColor="#ff0000"
@@ -88,11 +89,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/dialog_button_selector"
-            android:paddingBottom="4dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="4dp"
-            android:text="确定"
+            android:paddingBottom="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="6dp"
+            android:text="@string/dialog_positive_button"
             android:gravity="center"
             android:minWidth="60dp"
             android:textColor="#2CB1E1"

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MaterialDialog</string>
+    <string name="dialog_title">Title</string>
+    <string name="dialog_sub_tittle">SubTitle</string>
+    <string name="dialog_message">Message</string>
+    <string name="dialog_positive_button">OK</string>
+    <string name="dialog_negative_button">CANCEL</string>
 </resources>

@@ -4,15 +4,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ConfirmDialog extends Dialog {
+public class MaterialDialog extends Dialog {
 
     private TextView tvTitle;
     private TextView tvSubTitle;
@@ -27,20 +29,20 @@ public class ConfirmDialog extends Dialog {
     private OnDialogButtonClickListener clickListener;
     //EditText's attr
 
-    public ConfirmDialog(Context context) {
+    public MaterialDialog(Context context) {
         super(context, R.style.MyDialog);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         init(context);
     }
 
-    public ConfirmDialog(Context context, int attrs) {
+    public MaterialDialog(Context context, int attrs) {
         super(context, attrs);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         init(context);
     }
 
     private void init(Context context) {
-        setContentView(R.layout.confirm_dialog_layout);
+        setContentView(R.layout.material_dialog_layout);
 
         tvTitle = (TextView) findViewById(R.id.title);
         tvSubTitle = (TextView) findViewById(R.id.sub_title);
@@ -83,12 +85,17 @@ public class ConfirmDialog extends Dialog {
         tvMessage.setText(message);
     }
 
-    public void setCustomView(View customView) {
+    public void setMessageTextSize(int messageTextSize){
+        tvMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, messageTextSize);
+    }
+
+    public void setCustomView(View customView, LinearLayout.LayoutParams params) {
         customViewContainer.removeAllViews();
         this.customView = customView;
         if (customView == null)
             return;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        if (params == null)
+            params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         customViewContainer.addView(this.customView, params);
     }
 
@@ -118,10 +125,13 @@ public class ConfirmDialog extends Dialog {
     }
 
     public void showEditModel(CharSequence txt, CharSequence hint, int inputType){
-        setEditModelEnable(true);
         etInput.setText(txt);
         etInput.setHint(hint);
         etInput.setInputType(inputType);
+    }
+
+    public void setInputFilters(InputFilter[] inputFilters) {
+        etInput.setFilters(inputFilters);
     }
 
     public View getCustomView() {
@@ -138,7 +148,7 @@ public class ConfirmDialog extends Dialog {
 
             }
             if (clickListener != null)
-                clickListener.onDialogButtonClick(ConfirmDialog.this, etInput.getText(), isPositiveButtonClick);
+                clickListener.onDialogButtonClick(MaterialDialog.this, etInput.getText(), isPositiveButtonClick);
 
             //in editable model
             if (etInput.getVisibility() != View.VISIBLE)
@@ -163,18 +173,22 @@ public class ConfirmDialog extends Dialog {
         CharSequence title;
         CharSequence subtitle;
         CharSequence message;
+        int messageTextSize = 16;
         CharSequence positive;
         CharSequence negative;
         OnDialogButtonClickListener onDialogButtonClickListener;
+        DialogInterface.OnCancelListener onCancelListener;
         boolean cancelable = true;
         boolean cancelableOnTouchOutside = true;
         View view;
+        LinearLayout.LayoutParams params;
 
         //EditText's attr
         boolean editModelEnable = false;
         CharSequence txt;
         CharSequence hint;
         int inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+        InputFilter[] inputFilters;
 
         public Builder(Context context) {
             this.context = context;
@@ -192,6 +206,17 @@ public class ConfirmDialog extends Dialog {
 
         public Builder setMessage(CharSequence message) {
             this.message = message;
+            return this;
+        }
+
+        /**
+         *
+         * @param messageTextSize
+         *        The unit is "sp".
+         * @return
+         */
+        public Builder setMessageTextSize(int messageTextSize) {
+            this.messageTextSize = messageTextSize;
             return this;
         }
 
@@ -215,13 +240,24 @@ public class ConfirmDialog extends Dialog {
             return this;
         }
 
+        public Builder setOnCancelListener(OnCancelListener onCancelListener) {
+            this.onCancelListener = onCancelListener;
+            return this;
+        }
+
         public Builder setCancelableOnTouchOutside(boolean cancelableOnTouchOutside) {
             this.cancelableOnTouchOutside = cancelableOnTouchOutside;
             return this;
         }
 
-        public Builder setView(View view) {
+        public Builder setCustomView(View view) {
             this.view = view;
+            return this;
+        }
+
+        public Builder setCustomView(View view, LinearLayout.LayoutParams params) {
+            this.view = view;
+            this.params = params;
             return this;
         }
 
@@ -254,16 +290,28 @@ public class ConfirmDialog extends Dialog {
             return this;
         }
 
-        public ConfirmDialog create(){
-            ConfirmDialog dialog = new ConfirmDialog(context);
+        public Builder setInputFilters(InputFilter[] inputFilters) {
+            this.inputFilters = inputFilters;
+            return this;
+        }
+
+        public MaterialDialog create(){
+            MaterialDialog dialog = new MaterialDialog(context);
             dialog.setTitle(title);
             dialog.setSubTitle(subtitle);
             dialog.setMessage(message);
+            dialog.setMessageTextSize(messageTextSize);
             dialog.setNegativeButton(negative);
             dialog.setPositiveButton(positive);
             dialog.setClickListener(onDialogButtonClickListener);
-            dialog.setCustomView(view);
+            if (view != null)
+                dialog.setCustomView(view, params);
+            dialog.setEditModelEnable(editModelEnable);
             dialog.showEditModel(txt, hint, inputType);
+            if (inputFilters != null)
+                dialog.setInputFilters(inputFilters);
+            if (onCancelListener != null)
+                dialog.setOnCancelListener(onCancelListener);
 
             return dialog;
         }
